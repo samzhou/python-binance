@@ -1192,6 +1192,22 @@ class Client(BaseClient):
         """
         return self._get('ticker/24hr', data=params, version=self.PRIVATE_API_VERSION)
 
+    def get_ticker_rolling(self, **params):
+        """Rolling window price change statistics
+
+        https://binance-docs.github.io/apidocs/spot/en/#rolling-window-price-change-statistics
+
+        :param symbol:
+        :type symbol: str
+        :param windowSize:
+        :type windowSize: enum
+
+        :returns: API response
+        :raises: BinanceRequestException, BinanceAPIException
+
+        """
+        return self._get('ticker', data=params, version=self.PRIVATE_API_VERSION)
+
     def get_symbol_ticker(self, **params):
         """Latest price for a symbol or symbols.
 
@@ -7628,6 +7644,10 @@ class AsyncClient(BaseClient):
     async def get_ticker(self, **params):
         return await self._get('ticker/24hr', data=params, version=self.PRIVATE_API_VERSION)
     get_ticker.__doc__ = Client.get_ticker.__doc__
+
+    async def get_ticker_rolling(self, **params):
+        return await self._get('ticker', data=params, version=self.PRIVATE_API_VERSION)
+    get_ticker_rolling.__doc__ = Client.get_ticker_rolling.__doc__
 
     async def get_symbol_ticker(self, **params):
         return await self._get('ticker/price', data=params, version=self.PRIVATE_API_VERSION)
